@@ -28,5 +28,3 @@ A new capability registers its manifest and navigation items. The existing sideb
 Business-specific configuration remains under Businesses. Shared AI provider configuration remains under Core. Capability infrastructure belongs to its owning capability.
 
 The frontend MUST NOT hardcode business names or capability group names into navigation.
-
-[executed on device: mail.quicrefill.com (657bc0f0-b268-4295-8ef1-fac3aa0eceb5)]
