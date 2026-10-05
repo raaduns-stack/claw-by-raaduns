@@ -268,3 +268,14 @@ Business qualification profile currently contains: allowed opportunity types, ex
 Source platform definitions remain shared source infrastructure. Business-specific source credentials/subscriptions can be introduced independently when required; discovery remains source-level and is not duplicated per business.
 
 UI rule: the selected business is the context for operations, qualification, and activity. The capability remains shared.
+
+
+## 16. Business Knowledge Base Implementation — 2026-10-05
+
+Business configuration is a full business-owned knowledge boundary, not only a qualification form. The implementation includes identity/profile data, compliance records, experience records, bid assets, knowledge documents, and operating policy. These records are stored per business and are consumed downstream by shared capabilities.
+
+The Business Configuration UI MUST remain data-driven. Business names must come from the business registry; no business-specific names may be hardcoded into the frontend. QUALIFY_AND_BID remains reusable and must not contain business-specific workflow logic.
+
+The business knowledge API provides independent CRUD boundaries for profile, policy, compliance, experience, bid assets and knowledge documents. Evidence metadata must remain explicit. AI MUST NOT fabricate missing company facts or supporting evidence.
+
+Migration: database/007_business_knowledge_base.sql.
