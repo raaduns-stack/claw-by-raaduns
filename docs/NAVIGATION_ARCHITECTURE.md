@@ -7,13 +7,26 @@ Staff-Claw navigation follows the Core -> Capabilities -> Business Configuration
 
 ## Current navigation
 - Businesses — business configuration and business-owned knowledge.
-- QUALIFY_AND_BID — collapsible capability group containing Operations, Opportunities, Qualification, Activity, Tender Sources and Platform Login.
+- Registered capabilities — rendered from the server-side capability registry as collapsible groups.
 - Core / AI Providers — shared AI provider configuration.
 - Sign out.
 
+## Capability registry
+The server-side capability registry is the navigation authority for capability groups. Each active capability declares:
+- stable capability ID
+- display label
+- version
+- status
+- navigation items and page identifiers
+- workflow stages
+
+The frontend consumes `GET /api/capabilities` and does not hardcode capability group names or capability navigation items.
+
 ## Extensibility
-Capability groups are collapsible navigation boundaries. New capabilities may add their own group without moving capability pages into Staff-Claw Core.
+A new capability registers its manifest and navigation items. The existing sidebar automatically renders a new collapsible capability group. Capability-specific workflow pages remain owned by that capability.
 
-Business-specific configuration remains under Businesses. AI provider configuration remains shared Core infrastructure. Source/tender configuration remains under QUALIFY_AND_BID because it is capability infrastructure.
+Business-specific configuration remains under Businesses. Shared AI provider configuration remains under Core. Capability infrastructure belongs to its owning capability.
 
-The frontend MUST NOT hardcode business names into navigation. Capability names should reflect registered platform capabilities rather than individual businesses.
+The frontend MUST NOT hardcode business names or capability group names into navigation.
+
+[executed on device: mail.quicrefill.com (657bc0f0-b268-4295-8ef1-fac3aa0eceb5)]
