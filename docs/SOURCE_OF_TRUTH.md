@@ -279,3 +279,11 @@ The Business Configuration UI MUST remain data-driven. Business names must come 
 The business knowledge API provides independent CRUD boundaries for profile, policy, compliance, experience, bid assets and knowledge documents. Evidence metadata must remain explicit. AI MUST NOT fabricate missing company facts or supporting evidence.
 
 Migration: database/007_business_knowledge_base.sql.
+
+## Navigation Architecture — 2026-10-05
+
+Staff-Claw navigation follows the Core -> Capabilities -> Business Configurations model. Businesses is a top-level business-owned boundary. QUALIFY_AND_BID is a collapsible capability group containing its operational pages and tender-source infrastructure. Shared AI provider configuration remains under Core. Future capabilities may add their own collapsible groups without placing capability workflow pages in Core.
+
+Detailed UX baseline: docs/NAVIGATION_ARCHITECTURE.md.
+
+[executed on device: mail.quicrefill.com (657bc0f0-b268-4295-8ef1-fac3aa0eceb5)]
