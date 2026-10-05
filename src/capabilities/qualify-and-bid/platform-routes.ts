@@ -54,5 +54,5 @@ export function registerPlatformRoutes(app: FastifyInstance) {
       const message=error instanceof Error?error.message:"Document retrieval failed.";
       return reply.code(502).send({error:message});
     }
-  }););
+  });
 }
