@@ -36,5 +36,3 @@ const registry: CapabilityDefinition[] = [
 export function listCapabilities(): CapabilityDefinition[] {
   return registry.filter((capability) => capability.status === "active");
 }
-
-[executed on device: mail.quicrefill.com (657bc0f0-b268-4295-8ef1-fac3aa0eceb5)]
