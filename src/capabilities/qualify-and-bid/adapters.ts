@@ -214,6 +214,38 @@ export class NaijaBusinessAdapter implements SourceAdapter {
     });
   }
 
+  async downloadDocuments(sourceOpportunityId: string): Promise<unknown[]> {
+    return withPersistentBrowser(this.platform.sourceId, async context => {
+      const page = await context.newPage();
+      const baseUrl = this.platform.baseUrl.replace(/\/$/, "");
+      const url = sourceOpportunityId.startsWith("http") ? sourceOpportunityId : baseUrl + "/tender/" + encodeURIComponent(sourceOpportunityId);
+      await page.goto(url, { waitUntil: "domcontentloaded" });
+      const links = await page.locator("a[href]").evaluateAll(anchors => anchors.map(anchor => ({
+        url: (anchor as HTMLAnchorElement).href,
+        text: (anchor.textContent || "").trim()
+      })).filter(item => /\.(pdf|docx?|xlsx?|zip)(?:$|[?#])/i.test(item.url)));
+      const { mkdir, writeFile } = await import("node:fs/promises");
+      const { createHash } = await import("node:crypto");
+      const { join } = await import("node:path");
+      const root = new URL("../../../../data/tender-documents/", import.meta.url).pathname;
+      const opportunityKey = createHash("sha256").update(sourceOpportunityId).digest("hex").slice(0, 24);
+      const dir = join(root, this.platform.sourceId, opportunityKey);
+      await mkdir(dir, { recursive: true, mode: 0o700 });
+      const downloaded: Array<{url:string;text:string;path:string;bytes:number;sha256:string}> = [];
+      for (const link of links) {
+        const response = await context.request.get(link.url);
+        if (!response.ok()) continue;
+        const body = await response.body();
+        const name = new URL(link.url).pathname.split("/").pop() || "document";
+        const safeName = name.replace(/[^a-zA-Z0-9._-]/g, "_").slice(-180);
+        const filePath = join(dir, safeName);
+        await writeFile(filePath, body, { mode: 0o600 });
+        downloaded.push({url:link.url,text:link.text,path:filePath,bytes:body.length,sha256:createHash("sha256").update(body).digest("hex")});
+      }
+      return downloaded;
+    });
+  }
+
   async submit(_sourceOpportunityId: string, _bidPackage: unknown): Promise<{ submissionReference: string }> {
     throw new Error("NaijaBusiness submission workflow is the next adapter implementation step.");
   }
@@ -224,9 +256,8 @@ export class NaijaBusinessAdapter implements SourceAdapter {
 
   async logout(): Promise<void> {
     await withPersistentBrowser(this.platform.sourceId, async context => {
-      const page = await context.newPage();
-      await page.goto(`${this.platform.baseUrl}/wp-login.php?action=logout`, { waitUntil: "domcontentloaded" }).catch(() => undefined);
+      await context.clearCookies();
+      await context.clearPermissions();
     });
     await updatePlatformAuthState(this.platform.sourceId, "NOT_AUTHENTICATED");
-  }
-}
+  }}
