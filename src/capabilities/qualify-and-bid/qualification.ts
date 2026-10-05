@@ -4,12 +4,17 @@ export type QualificationProfile = {
   allowedOpportunityTypes?: Opportunity["opportunityType"][];
   excludedIndustries?: string[];
   excludedLocations?: string[];
+  excludedClients?: string[];
   minimumContractValue?: number;
+  preferredContractValueRange?: string;
   minimumMargin?: number;
   minimumLeadTimeDays?: number;
   capabilities?: string[];
   certifications?: string[];
   experienceKeywords?: string[];
+  pricingRules?: string;
+  capacityLimits?: string;
+  deadlineConstraints?: string;
 };
 
 const norm=(v:string)=>v.trim().toLowerCase();
