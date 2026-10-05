@@ -197,25 +197,25 @@ MFA/CAPTCHA/security controls requiring human intervention are explicit blocked 
 
 ## 13. Current NaijaBusiness Implementation Status
 
-NaijaBusiness is configured as the first source platform adapter.
+NaijaBusiness is the first source platform adapter and is operational through the acquisition stages currently approved.
 
-Implemented:
+Implemented and verified:
 - runtime platform configuration
 - encrypted credential storage
 - persistent Playwright browser session storage
-- login attempt through the adapter
-- authentication-state persistence
-- health-check scaffolding
-- frontend configuration and login UI
+- login and authentication-state persistence
+- health checks
+- authenticated paginated opportunity discovery
+- canonical opportunity normalization and persistence
+- tender detail retrieval for visible source content
+- document-link discovery and document retrieval support
+- discovery change detection and idempotent persistence
 
-Not yet implemented:
-- authenticated opportunity discovery/extraction
-- opportunity document retrieval
-- bid submission
+Intentionally not implemented:
+- automatic bid submission
 - submission-status tracking
 
-The system MUST NOT represent NaijaBusiness discovery or submission as operationally complete until those adapter functions are implemented and tested.
-
+The system MUST NOT represent bid submission as operationally complete. CAPTCHA, MFA, legal consent, or other human-required security controls remain explicit blocked states and MUST NOT be bypassed.
 
 ## 14. Multi-Platform Configuration UX
 
@@ -286,7 +286,6 @@ Staff-Claw navigation follows the Core -> Capabilities -> Business Configuration
 
 Detailed UX baseline: docs/NAVIGATION_ARCHITECTURE.md.
 
-[executed on device: mail.quicrefill.com (657bc0f0-b268-4295-8ef1-fac3aa0eceb5)]
 
 ## Capability Registry and Navigation — 2026-10-05
 
@@ -295,5 +294,3 @@ Capability navigation is registry-driven. The server-side capability registry is
 Each registered capability declares an ID, label, version, status, workflow and navigation items. Active capabilities are rendered as collapsible sidebar groups. A new capability can therefore establish its own navigation boundary without modifying Staff-Claw Core navigation code.
 
 Detailed baseline: docs/NAVIGATION_ARCHITECTURE.md.
-
-[executed on device: mail.quicrefill.com (657bc0f0-b268-4295-8ef1-fac3aa0eceb5)]
