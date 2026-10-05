@@ -17,5 +17,3 @@ app.get("/api/dashboard/data",async(request)=>{const q=request.query as {busines
 app.get("/health",async()=>({status:"ok",service:"staff-claw-core"}));
 registerAdminAuthRoutes(app);registerAiConfigRoutes(app);registerBusinessRoutes(app);registerBusinessKnowledgeRoutes(app);registerCapabilityRoutes(app);registerPlatformRoutes(app);registerQualifyAndBidRoutes(app);
 export async function startServer(){await app.listen({port:config.PORT,host:"127.0.0.1"});}
-
-[executed on device: mail.quicrefill.com (657bc0f0-b268-4295-8ef1-fac3aa0eceb5)]
