@@ -22,7 +22,8 @@ export function registerPlatformRoutes(app: FastifyInstance) {
     if(platform.adapterType!=="naijabusiness"){await updatePlatformAuthState(sourceId,"ERROR","No login adapter is registered for this platform.");return reply.code(400).send({error:"Login adapter not implemented for this platform"});}
     const adapter=new NaijaBusinessAdapter({sourceId:platform.sourceId,name:platform.name,baseUrl:platform.baseUrl,adapterType:platform.adapterType});
     const authState=await adapter.authenticate(); return reply.send({sourceId,authState});
-  }
+  });
+
   app.post("/api/platforms/:sourceId/health", async (request, reply) => {
     const sourceId=String((request.params as {sourceId:string}).sourceId); const platform=await getSourcePlatform(sourceId);
     if(!platform)return reply.code(404).send({error:"Platform not found"});
