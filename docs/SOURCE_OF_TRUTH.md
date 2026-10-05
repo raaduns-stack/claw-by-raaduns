@@ -287,3 +287,13 @@ Staff-Claw navigation follows the Core -> Capabilities -> Business Configuration
 Detailed UX baseline: docs/NAVIGATION_ARCHITECTURE.md.
 
 [executed on device: mail.quicrefill.com (657bc0f0-b268-4295-8ef1-fac3aa0eceb5)]
+
+## Capability Registry and Navigation — 2026-10-05
+
+Capability navigation is registry-driven. The server-side capability registry is the authority for active capability groups and their navigation items. The frontend consumes `GET /api/capabilities` and MUST NOT hardcode capability group names or capability navigation items.
+
+Each registered capability declares an ID, label, version, status, workflow and navigation items. Active capabilities are rendered as collapsible sidebar groups. A new capability can therefore establish its own navigation boundary without modifying Staff-Claw Core navigation code.
+
+Detailed baseline: docs/NAVIGATION_ARCHITECTURE.md.
+
+[executed on device: mail.quicrefill.com (657bc0f0-b268-4295-8ef1-fac3aa0eceb5)]
